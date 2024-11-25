@@ -9,6 +9,7 @@ import NonAuthHomeView from "../../sections/NonAuthHomeView";
 
 export const metadata = { title: "Domov | ZoškaSnap" };
 
+
 export default async function HomePage() {
   try {
     const session = await getServerSession(authOptions);
