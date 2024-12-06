@@ -1,9 +1,10 @@
 // auth/[...nextauth]/authOptions.ts
 
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { NextAuthOptions } from "next-auth";
+import { DefaultUser, NextAuthOptions } from "next-auth";
 import { prisma } from "./prizma";
 import GoogleProvider from "next-auth/providers/google";
+import { Session } from "next-auth";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -23,7 +24,7 @@ export const authOptions: NextAuthOptions = {
     async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
       return url.startsWith(baseUrl) ? url : baseUrl;
     },
-    async session({ session, user }: { session: any; user: any }) {
+    async session({ session, user }: { session: Session; user: DefaultUser }) {
       session.user = user; // Include user info in the session
       return session;
     },

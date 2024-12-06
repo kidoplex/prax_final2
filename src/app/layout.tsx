@@ -4,7 +4,6 @@ import { Metadata } from "next";
 import "./globals.css";
 import Navbar from "../components/NavBar";
 import AuthProvider from "../components/AuthProvider";
-import Watchdog from "../components/Watchdog"; // Import the Watchdog component
 
 export const metadata: Metadata = {
   title: "SnapZoška",

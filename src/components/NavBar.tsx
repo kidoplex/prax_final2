@@ -12,7 +12,6 @@ import AccessibilityIcon from '@mui/icons-material/Accessibility';
 import ArticleIcon from '@mui/icons-material/Article';
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import LogoutIcon from "@mui/icons-material/Logout";
-import PostAddIcon from "@mui/icons-material/PostAdd"
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
