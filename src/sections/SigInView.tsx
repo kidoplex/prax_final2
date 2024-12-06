@@ -35,7 +35,7 @@ export default function SignInView() {
         variant="outlined"
         fullWidth
         startIcon={<GoogleIcon />}
-        onClick={() => signIn("google")}
+        onClick={() => signIn("google", {callbackUrl: "/"})}
         sx={{ mb: 1 }}
       >
         Prihlásiť sa účtom Google
