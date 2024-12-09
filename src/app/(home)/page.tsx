@@ -5,15 +5,24 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import NonAuthHomeView from "../../sections/NonAuthHomeView";
-import {redirect} from "next/navigation"
+import AuthHomeView from "../../sections/AuthHomeView";
 
 export const metadata = { title: "Domov | ZoškaSnap" };
 
 
 export default async function HomePage() {
+  try {
+    const session = await getServerSession(authOptions);
 
-  const session = await getServerSession(authOptions);
-  session ? redirect("/prispevok") : null;
+    if (!session) {
+      return <NonAuthHomeView />;
+    }
+    else {
+      return <AuthHomeView session={session} />;
+    }
 
-  return <NonAuthHomeView/>
+  } catch (error) {
+    console.error("Error fetching session:", error);
+    return <NonAuthHomeView />;
+  }
 }
