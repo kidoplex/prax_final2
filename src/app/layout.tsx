@@ -1,9 +1,8 @@
-// app/layout.tsx
-
 import { Metadata } from "next";
 import "./globals.css";
 import Navbar from "../components/NavBar";
 import AuthProvider from "../components/AuthProvider";
+import ThemeProviderWrapper from "../components/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "SnapZoška",
@@ -18,12 +17,14 @@ export default function RootLayout({
   return (
     <html lang="sk">
       <body>
-        <AuthProvider>
+        <ThemeProviderWrapper> {/* Wrap everything in the theme provider */}
+          <AuthProvider>
             <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
               <main style={{ flexGrow: 1 }}>{children}</main>
             </div>
             <Navbar />
-        </AuthProvider>
+          </AuthProvider>
+        </ThemeProviderWrapper>
       </body>
     </html>
   );
