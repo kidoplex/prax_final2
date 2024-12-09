@@ -15,7 +15,6 @@ import Brightness4Icon from "@mui/icons-material/Brightness4"; // Moon icon
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useThemeToggle } from "../components/ThemeProvider"; // Use the theme toggle hook
-import { Session } from "inspector/promises";
 
 export default function Navbar() {
   const [value, setValue] = React.useState<string>("/");
