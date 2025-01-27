@@ -16,6 +16,7 @@ import { useState } from "react";
 export default function SignInView() {
   const [gdprChecked, setGdprChecked] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  
 
   const handleSignIn = () => {
     if (!gdprChecked) {
@@ -24,12 +25,8 @@ export default function SignInView() {
     }
 
     setShowAlert(false); // Hide alert if GDPR is checked
-    signIn("google", {
-      callbackUrl:
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:3000/prispevok"
-          : `${process.env.NEXTAUTH_URL}/prispevok`,
-    });
+    const baseUrl = window.location.origin;
+    signIn("google", {callbackUrl: `${baseUrl}/prispevok`,});
   };
 
   return (
