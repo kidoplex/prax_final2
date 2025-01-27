@@ -40,7 +40,7 @@ export default function SignUpView() {
         variant="outlined"
         fullWidth
         startIcon={<GoogleIcon />}
-        onClick={() => signIn("google", {callbackUrl:"/"})}
+        onClick={() => signIn("google", {callbackUrl: process.env.NODE_ENV === "development" ? "http://localhost:3000/prispevok" : `${process.env.NEXTAUTH_URL}/prispevok`,})}
         sx={{ mb: 1 }}
       >
         Registrovať sa účtom Google
