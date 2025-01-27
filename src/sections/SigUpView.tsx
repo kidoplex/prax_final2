@@ -11,12 +11,17 @@ import {
 import { signIn } from "next-auth/react";
 import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function SignUpView() {
   const [gdprChecked, setGdprChecked] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const baseUrl = window.location.origin;
+  const [baseUrl, setBaseUrl] = useState("");
+
+
+  useEffect(() => {
+    setBaseUrl(window.location.origin); // This ensures baseUrl is set only on the client
+  }, []);
 
   const handleSignUp = () => {
     if (!gdprChecked) {
