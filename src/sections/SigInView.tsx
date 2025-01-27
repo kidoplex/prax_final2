@@ -1,16 +1,37 @@
-// src/sections/SignInView.tsx
-
 "use client";
 
 import {
-    Button,
-    Container,
-    Typography,
-  } from "@mui/material";
-  import { signIn } from "next-auth/react";
-  import GoogleIcon from "@mui/icons-material/Google";
+  Button,
+  Container,
+  Typography,
+  Checkbox,
+  FormControlLabel,
+  Box,
+} from "@mui/material";
+import { signIn } from "next-auth/react";
+import GoogleIcon from "@mui/icons-material/Google";
+import Link from "next/link";
+import { useState } from "react";
 
 export default function SignInView() {
+  const [gdprChecked, setGdprChecked] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handleSignIn = () => {
+    if (!gdprChecked) {
+      setShowAlert(true); // Show alert if GDPR is not checked
+      return;
+    }
+
+    setShowAlert(false); // Hide alert if GDPR is checked
+    signIn("google", {
+      callbackUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000/prispevok"
+          : `${process.env.NEXTAUTH_URL}/prispevok`,
+    });
+  };
+
   return (
     <Container
       maxWidth="xs"
@@ -30,73 +51,65 @@ export default function SignInView() {
         Prihlásenie
       </Typography>
 
-      {/* Google Sign Up */}
+
+      <Typography variant="body1" sx={{ mb: 6 }}>
+        Nemáte účet?{" "}
+        <Link href="/auth/registracia" style={{ color: "blue", textDecoration: "underline" }}>
+          Zaregistrujte sa
+        </Link>
+      </Typography>
+
+
+      {/* GDPR Consent */}
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={gdprChecked}
+            onChange={(e) => setGdprChecked(e.target.checked)}
+            color="primary"
+          />
+        }
+        label={
+          <Typography>
+            Súhlas s{" "}
+            <Link href="/gdpr" style={{ color: "blue", textDecoration: "underline" }}>
+              GDPR
+            </Link>
+          </Typography>
+        }
+        sx={{ mb: 2 }}
+      />
+
+      {/* Conditional Alert */}
+      {showAlert && (
+        <Box
+          sx={{
+            bgcolor: "#fdecea",
+            color: "#d32f2f",
+            border: "1px solid #d32f2f",
+            borderRadius: 1,
+            p: 2,
+            textAlign: "center",
+            mb: 2,
+            width: "100%",
+          }}
+        >
+          <Typography>
+            Prosím, súhlaste s podmienkami GDPR pred pokračovaním.
+          </Typography>
+        </Box>
+      )}
+
+      {/* Google Sign In */}
       <Button
         variant="outlined"
         fullWidth
         startIcon={<GoogleIcon />}
-        onClick={() => signIn("google", {callbackUrl: process.env.NODE_ENV === "development" ? "http://localhost:3000/prispevok" : `${process.env.NEXTAUTH_URL}/prispevok`,})}
+        onClick={handleSignIn}
         sx={{ mb: 1 }}
       >
         Prihlásiť sa účtom Google
       </Button>
-
-
     </Container>
   );
 }
-
-
-      // {/* Facebook Sign Up */}
-      // <Button
-      //   variant="outlined"
-      //   fullWidth
-      //   startIcon={<FacebookIcon />}
-      //   sx={{ mb: 4 }}
-      // >
-      //   Prihlásiť sa účtom Facebook
-      // </Button>
-
-      // {/* Divider */}
-      // <Divider sx={{ width: "100%", mb: 2 }}>
-      //   <Typography variant="body2">alebo</Typography>
-      // </Divider>
-
-      // {/* Email */}
-      // <TextField
-      //   margin="normal"
-      //   fullWidth
-      //   label="Email"
-      //   type="email"
-      //   variant="outlined"
-      //   required
-      //   defaultValue="your@email.com"
-      // />
-
-      // {/* Password */}
-      // <TextField
-      //   margin="normal"
-      //   fullWidth
-      //   label="Password"
-      //   type="password"
-      //   variant="outlined"
-      //   required
-      //   defaultValue="******"
-      // />
-
-      // {/* Checkbox */}
-      // <FormControlLabel
-      //   control={<Checkbox color="primary" />}
-      //   label="Chcem dostávať novinky na email"
-      //   sx={{ mt: 2 }}
-      // />
-
-      // {/* Sign Up Button */}
-      // <Button
-      //   variant="contained"
-      //   fullWidth
-      //   size="large"
-      //   sx={{ mt: 2, mb: 1 }}
-      // >
-      //   Prihlásiť
-      // </Button>
