@@ -10,8 +10,6 @@ import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
 
 export default function SignInView() {
-  
-
   const handleSignIn = () => {
     const baseUrl = window.location.origin;
     signIn("google", {callbackUrl: `${baseUrl}/prispevok`,});
