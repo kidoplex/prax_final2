@@ -1,26 +1,45 @@
-import { Container, Typography } from "@mui/material";
+import { Container, Typography, Button, Box } from "@mui/material";
 import Link from "next/link"; // Import the Link component
 
 export default function NonAuthHomeView() {
   return (
-    <Container>
-      <Typography variant="body1" sx={{ mt: 2 }}>
-        Domovská stránka - NEprihlásený user
-      </Typography>
-      <Typography sx={{ mt: 1 }}>
+    <Container sx={{ maxWidth: 'lg', mt: 4, textAlign: 'center' }}>
+      {/* Welcome Section */}
+      <Box sx={{ mb: 4 }}>
+        <Typography variant="h3" color="primary" sx={{ fontWeight: 'bold' }}>
+          Vítame vás na našej platforme!
+        </Typography>
+        <Typography variant="h5" sx={{ mt: 2, color: "text.secondary" }}>
+          Objavujte úžasný obsah, spoznávajte nových ľudí a zdieľajte svoje nezabudnuteľné momenty.
+        </Typography>
+      </Box>
+
+      {/* Call to Action */}
+      <Box sx={{ mb: 4 }}>
+        <Typography variant="h6" sx={{ color: 'text.primary' }}>
+          Pripojte sa k našej rastúcej komunite!
+        </Typography>
+        <Typography sx={{ mt: 2, color: 'gray' }}>
+          Aby ste mohli pridať príspevky a zobraziť svoj profil, <strong>registrujte sa</strong>.
+        </Typography>
         <Link href="/auth/registracia" passHref legacyBehavior>
-          <a style={{ color: "#1976d2", textDecoration: "underline" }}>Registrujte sa</a>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ mt: 3, padding: '10px 20px', fontSize: '16px' }}
+          >
+            Registrujte sa teraz
+          </Button>
         </Link>
-        , aby ste mohli pridať príspevky a zobraziť profil.
-      </Typography>
-      <Typography variant="h6" sx={{ mt: 3 }}>
-        Pripojte sa k našej rastúcej komunite!
-      </Typography>
-      <Typography variant="body1" sx={{ mt: 1, color: "gray" }}>
-        Objavujte úžasný obsah, spoznávajte nových ľudí a zdieľajte svoje 
-        nezabudnuteľné momenty. Pridajte sa teraz a buďte súčasťou našej 
-        kreatívnej platformy!
-      </Typography>
+      </Box>
+
+      {/* Description */}
+      <Box sx={{ mt: 5 }}>
+        <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.6 }}>
+          Pridajte sa teraz a buďte súčasťou našej kreatívnej platformy! Objavujte nové príspevky a
+          spoznávajte inšpiratívnych ľudí. Začnite svoju cestu ešte dnes.
+        </Typography>
+      </Box>
     </Container>
   );
 }
