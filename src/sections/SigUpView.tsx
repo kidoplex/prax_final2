@@ -75,6 +75,10 @@ export default function SignUpView() {
             <Link href="/gdpr" style={{ color: "blue", textDecoration: "underline" }}>
               GDPR
             </Link>
+            {" "}a{" "}
+            <Link href="/TOS" style={{ color: "blue", textDecoration: "underline" }}>
+              TOS
+            </Link>
           </Typography>
         }
         sx={{ mb: 2 }}

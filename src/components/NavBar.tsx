@@ -13,7 +13,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import LoginIcon from "@mui/icons-material/Login";
 import AccessibilityIcon from "@mui/icons-material/Accessibility";
-import ArticleIcon from "@mui/icons-material/Article";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Brightness7Icon from "@mui/icons-material/Brightness7"; // Sun icon
@@ -29,12 +28,14 @@ export default function Navbar() {
   const toggleTheme = useThemeToggle(); // Theme toggle function
 
   // Load theme preference from localStorage on mount
-  const [isSun, setIsSun] = React.useState(() => {
+  const [isSun, setIsSun] = React.useState(true);
+
+  React.useEffect(() => {
     if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") !== "dark"; // If theme is "dark", show moon
+      const savedTheme = localStorage.getItem("theme");
+      setIsSun(savedTheme !== "dark"); // Ensure consistency with stored theme
     }
-    return true; // Default to light mode
-  });
+  }, []);
 
   // Toggle the sun/moon icon and theme mode
   const handleThemeToggle = () => {
@@ -46,14 +47,13 @@ export default function Navbar() {
     toggleTheme();
   };
 
-  const handleNavigation = (event: React.SyntheticEvent, newValue: string) => {
+  const handleNavigation = (_: React.SyntheticEvent, newValue: string) => {
     if (
       !session &&
       newValue !== "/auth/registracia" &&
       newValue !== "/auth/prihlasenie" &&
       newValue !== "/" &&
-      newValue !== "/o-mne" &&
-      newValue !== "/gdpr"
+      newValue !== "/o-mne"
     ) {
       router.push("/auth/registracia");
     } else {
@@ -64,7 +64,6 @@ export default function Navbar() {
   const nonAuthPaths = [
     { label: "Domov", value: "/", icon: <HomeIcon /> },
     { label: "O mne", value: "/o-mne", icon: <AccessibilityIcon /> },
-    { label: "GDPR", value: "/gdpr", icon: <ArticleIcon /> },
     { label: "Registrácia", value: "/auth/registracia", icon: <AppRegistrationIcon /> },
     { label: "Prihlásenie", value: "/auth/prihlasenie", icon: <LoginIcon /> },
   ];
@@ -76,10 +75,10 @@ export default function Navbar() {
     {
       label: "Profil",
       value: "/profile",
-      icon: session?.user?.image ? (
-        <Avatar alt={session?.user?.name || "User"} src={session?.user?.image || undefined} />
-      ) : (
-        <Avatar>{session?.user?.name?.charAt(0) || "U"}</Avatar>
+      icon: (
+        <Avatar alt={session?.user?.name || "User"} src={session?.user?.image || undefined}>
+          {!session?.user?.image && (session?.user?.name?.charAt(0) || "U")}
+        </Avatar>
       ),
     },
     { label: "Odhlásiť", value: "/auth/odhlasenie", icon: <LogoutIcon /> },

@@ -1,5 +1,4 @@
 import { Container, Typography, Button, Box } from "@mui/material";
-import Link from "next/link"; // Import the Link component
 
 export default function NonAuthHomeView() {
   return (
@@ -22,15 +21,15 @@ export default function NonAuthHomeView() {
         <Typography sx={{ mt: 2, color: 'gray' }}>
           Aby ste mohli pridať príspevky a zobraziť svoj profil, <strong>registrujte sa</strong>.
         </Typography>
-        <Link href="/auth/registracia" passHref legacyBehavior>
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{ mt: 3, padding: '10px 20px', fontSize: '16px' }}
-          >
-            Registrujte sa teraz
-          </Button>
-        </Link>
+        <Button
+          component="a"  // This turns the button into an <a> tag
+          href="/auth/registracia"
+          variant="contained"
+          color="primary"
+          sx={{ mt: 3, padding: '10px 20px', fontSize: '16px' }}
+        >
+          Registrujte sa teraz
+        </Button>
       </Box>
 
       {/* Description */}
