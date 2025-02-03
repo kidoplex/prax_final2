@@ -15,6 +15,13 @@ export default function AuthHomeView({ session }: { session: Session | null }) {
       <Typography variant="h4" sx={{ mb: 3 }}>
         Vitajte, {session?.user?.name || "užívateľ"}!
       </Typography>
+      <Typography variant="h6" sx={{ mt: 2 }}>
+        Zdieľajte svoje momenty, objavujte nových ľudí a inšpirujte sa.
+      </Typography>
+      <Typography variant="body1" sx={{ mt: 1, color: "gray" }}>
+        Pripojte sa k miliónom užívateľov a budujte svoju digitálnu komunitu. 
+        Pridávajte fotky, sledujte priateľov a vytvárajte obsah, ktorý vás baví.
+      </Typography>
     </Container>
   );
 }
