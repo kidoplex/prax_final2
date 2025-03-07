@@ -5,7 +5,6 @@ import {
   BottomNavigation,
   BottomNavigationAction,
   Box,
-  Avatar,
   IconButton,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
@@ -14,12 +13,12 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import LoginIcon from "@mui/icons-material/Login";
 import AccessibilityIcon from "@mui/icons-material/Accessibility";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
-import LogoutIcon from "@mui/icons-material/Logout";
 import Brightness7Icon from "@mui/icons-material/Brightness7"; // Sun icon
 import Brightness4Icon from "@mui/icons-material/Brightness4"; // Moon icon
 import { useRouter, usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useThemeToggle } from "../components/ThemeProvider";
+import ProfileMenu from "./ProfileMenu";
 
 export default function Navbar() {
   const router = useRouter();
@@ -48,6 +47,10 @@ export default function Navbar() {
   };
 
   const handleNavigation = (_: React.SyntheticEvent, newValue: string) => {
+    if (newValue === "profile-menu") {
+      return; // Do nothing when clicking profile
+    }
+    
     if (
       !session &&
       newValue !== "/auth/registracia" &&
@@ -74,14 +77,9 @@ export default function Navbar() {
     { label: "Pridať", value: "/pridat", icon: <AddCircleIcon /> },
     {
       label: "Profil",
-      value: "/profile",
-      icon: (
-        <Avatar alt={session?.user?.name || "User"} src={session?.user?.image || undefined}>
-          {!session?.user?.image && (session?.user?.name?.charAt(0) || "U")}
-        </Avatar>
-      ),
-    },
-    { label: "Odhlásiť", value: "/auth/odhlasenie", icon: <LogoutIcon /> },
+      value: "profile-menu",
+      icon: <ProfileMenu />,
+    }
   ];
 
   const navigationPaths = status === "authenticated" ? authPaths : nonAuthPaths;

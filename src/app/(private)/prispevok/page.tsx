@@ -1,7 +1,9 @@
 import { PrismaClient, Post } from "@prisma/client";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
-import { Paper } from "@mui/material";
+import { Paper, IconButton, Box } from "@mui/material";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 
 // Function to shuffle an array
 function shuffleArray(array: Post[]): Post[] {
@@ -68,7 +70,22 @@ export default async function PostsList() {
               height={300}
               style={{ objectFit: "cover", borderRadius: "8px" }}
             />
-            <Typography variant="body2" color="textSecondary" sx={{ mt: 2 }}>
+            <Box sx={{ 
+              display: 'flex', 
+              gap: 1, 
+              mt: 1, 
+              alignSelf: 'flex-start',
+              width: '100%',
+              padding: '0 8px'
+            }}>
+              <IconButton size="small" color="primary">
+                <FavoriteBorderIcon />
+              </IconButton>
+              <IconButton size="small" color="primary">
+                <ChatBubbleOutlineIcon />
+              </IconButton>
+            </Box>
+            <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
               {post.caption || "No caption available"}
             </Typography>
           </Paper>
