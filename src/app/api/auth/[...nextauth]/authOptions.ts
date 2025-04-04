@@ -2,7 +2,7 @@
 
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { DefaultUser, NextAuthOptions } from "next-auth";
-import { prisma } from "./prizma";
+import { prisma } from "./prisma";
 import GoogleProvider from "next-auth/providers/google";
 import { Session } from "next-auth";
 
